@@ -1,1 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Java Lab – Final Website</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fdf2f8, #dbeafe, #cffafe, #fef9c3);
+}
+
+  
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #0f172a, #312e81, #1e293b);
+  color: white;
+  overflow-y: auto;
+  padding: 25px 20px;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+}
+.sidebar h2 {
+  text-align: center;
+  color: #fde047;
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(250, 204, 21, 0.6);
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+.unit {
+  margin-top: 20px;
+}
+.unit button {
+  width: 100%;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #f1f5f9;
+  font-weight: 600;
+  text-align: left;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.unit button:hover {
+  background: linear-gradient(90deg, #f472b6, #a78bfa, #34d399);
+  color: #fff;
+  transform: translateX(5px);
+}
+.topics {
+  margin-left: 15px;
+  margin-top: 8px;
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.topics li {
+  list-style: none;
+  padding: 6px 0;
+  cursor: pointer;
+  color: #cbd5e1;
+  transition: all 0.3s ease;
+}
+.topics li:hover {
+  color: #fcd34d;
+  text-decoration: underline;
+  transform: translateX(5px);
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #fff7ed, #fef3c7, #e0f2fe);
+  color: #111827;
+  box-shadow: inset 0 0 25px rgba(0,0,0,0.08);
+  border-top-left-radius: 20px;
+}
+.content h1 {
+  color: #6d28d9;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.content h2 {
+  color: #0f172a;
+  border-left: 6px solid #ec4899;
+  padding-left: 10px;
+  background: #fdf2f8;
+  border-radius: 4px;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Code Box */
+.code-box {
+  background: linear-gradient(135deg, #0f172a, #1e3a8a, #312e81);
+  color: #e2e8f0;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 15px;
+  font-family: "Consolas", monospace;
+  counter-reset: line;
+  white-space: pre-wrap;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: transform 0.3s ease;
+}
+.code-box:hover {
+  transform: scale(1.01);
+}
+.code-box code { display: block; }
+.code-box code span {
+  display: block;
+  counter-increment: line;
+}
+.code-box code span::before {
+  content: counter(line);
+  display: inline-block;
+  border-right: 1px solid #475569;
+  width: 2em;
+  margin-right: 10px;
+  color: #94a3b8;
+  text-align: right;
+}
+
+/* Buttons + Output */
+.download-btn {
+  background: linear-gradient(90deg, #10b981, #06b6d4, #3b82f6);
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(14,165,233,0.4);
+  transition: all 0.3s ease;
+}
+.download-btn:hover {
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #ec4899);
+  transform: translateY(-2px);
+}
+.output-box {
+  border: 2px dashed #f59e0b;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  background: #fef9c3;
+  color: #92400e;
+  text-align: center;
+  box-shadow: 0 0 18px rgba(245,158,11,0.25);
+}
+.output-box img {
+  width: 90%;
+  max-width: 700px;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+.output-box img:hover {
+  transform: scale(1.02);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a5b4fc;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<div class="sidebar">
+  <h2>Lab Topics</h2>
+
+  <!-- UNIT I -->
+  <div class="unit">
+    <button onclick="toggleTopics('u1')">UNIT I: JDBC</button>
+    <ul id="u1" class="topics">
+      <li onclick="showContent('week1')">Week 1 – Advanced Java Introduction</li>
+      <li onclick="showContent('week2')">Week 2 – MS Access JDBC</li>
+      <li onclick="showContent('week3')">Week 3 – MySQL with DSN</li>
+      <li onclick="showContent('week4')">Week 4 – Callable & Prepared Statements</li>
+      <li onclick="showContent('week5a')">Week 5 – Scroll Sensitive ResultSet</li>
+    </ul>
+  </div>
+
+  <!-- UNIT II -->
+  <div class="unit">
+    <button onclick="toggleTopics('u2')">UNIT II: Servlets</button>
+    <ul id="u2" class="topics">
+      <li onclick="showContent('genericServlet')">Week 6 – Generic Servlet</li>
+      <li onclick="showContent('httpServlet')">Week 6 – HttpServlet</li>
+      <li onclick="showContent('pizzaOrder')">Week 6 – Pizza Order Servlet</li>
+      <li onclick="showContent('formData')">Week 6 – Form Data Servlet</li>
+      <li onclick="showContent('createCookie')">Week 7 – Create Cookie</li>
+      <li onclick="showContent('readCookie')">Week 7 – Read Cookie</li>
+    </ul>
+  </div>
+  <!-- UNIT III -->
+<div class="unit">
+  <button onclick="toggleTopics('u3')">UNIT III: Spring Boot Basics</button>
+  <ul id="u3" class="topics">
+    <li onclick="showContent('week8')">Week 8 – Spring Boot Using Maven</li>
+    <li onclick="showContent('week9')">Week 9 – REST API (GET & POST)</li>
+    <li onclick="showContent('week10')">Week 10 – Spring Boot Annotations</li>
+  </ul>
+</div>
+
+<!-- UNIT IV -->
+<div class="unit">
+  <button onclick="toggleTopics('u4')">UNIT IV: Spring Data JPA</button>
+  <ul id="u4" class="topics">
+    <li onclick="showContent('week11')">Week 11 – JPA with H2 (In-memory)</li>
+    <li onclick="showContent('week12')">Week 12 – JPA with MySQL + Custom Queries</li>
+  </ul>
+</div>
+
+</div>
+
+<div class="content" id="content">
+  <h1>Welcome to Advanced Java Lab – Final Website</h1>
+  <p>Select any week from the sidebar to view its AIM, code, and actual output.</p>
+</div>
+
+<script>
+function toggleTopics(id){
+  const el=document.getElementById(id);
+  el.style.display=el.style.display==="block"?"none":"block";
+}
+
+/* ---------- Combined Show Content for Both Units ---------- */
+function showContent(topic) {
+  const c = document.getElementById("content");
+
+  // --- Unit I topics ---
+  const jdbc = {
+    week1: {
+  title: "Week 1 – Introduction to Advanced Java",
+  aim: "Understand core Java vs advanced Java, applets, servlets, JDBC, cookies/sessions, Spring Boot basics.",
+  file: "AJL--week1.pdf",
+  output: "none",
+
+  code: `
+<span>1. What are the differences between Core Java and Advanced Java?</span>
+<span><b>Core Java:</b></span>
+<span>- Core Java contains basics and fundamentals of Java.</span>
+<span>- Used for general-purpose, standalone applications.</span>
+<span>- Key topics: Syntax, OOP concepts, standard libraries.</span>
+<span>- Important packages: java.lang, java.util, java.io, java.math.</span>
+
+<span><b>Advanced Java:</b></span>
+<span>- Used for enterprise and web applications.</span>
+<span>- Technologies: JDBC, Servlets, JSP, EJB, Web Services, Frameworks.</span>
+<span>- Used for enterprise-level and web-based applications.</span>
+
+<span>2. What are the important features of Applets?</span>
+<span>- Applets extend java.applet.Applet class.</span>
+<span>- They run inside browser/applet viewer, not standalone.</span>
+<span>- They do not use main(). They use AWT methods like drawString().</span>
+
+<span>3. What are the key features of Java Servlets?</span>
+<span>- Execute on server side.</span>
+<span>- Handle complex client requests.</span>
+<span>- Generate dynamic responses efficiently.</span>
+
+<span>4. Differences between Applets and Servlets?</span>
+
+<span><b>Applets:</b></span>
+<span>- Run on client side.</span>
+<span>- Used for interactive GUI components.</span>
+<span>- Use AWT/Swing libraries.</span>
+
+<span><b>Servlets:</b></span>
+<span>- Run on server side.</span>
+<span>- Handle web requests and responses.</span>
+<span>- No GUI.</span>
+
+<span>5. Major features of Java compared with other languages:</span>
+
+<span><b>Java vs Python:</b></span>
+<span>- Python: easier, shorter syntax.</span>
+<span>- Java: faster.</span>
+
+<span><b>Java vs C++:</b></span>
+<span>- C++: faster but complex, uses pointers.</span>
+<span>- Java: safer, automatic memory management.</span>
+
+<span><b>Java vs Ruby:</b></span>
+<span>- Ruby: simple and short.</span>
+<span>- Java: faster, used in large applications.</span>
+
+<span><b>Java vs C:</b></span>
+<span>- C: low-level, very fast.</span>
+<span>- Java: safer, easier, no pointers.</span>
+
+<span>6. What is the main role of JDBC and ODBC?</span>
+<span>- JDBC: Java-specific API for database connectivity.</span>
+<span>- ODBC: General API for all languages.</span>
+
+<span>7. Differences between JDBC and ODBC?</span>
+<span>- JDBC is only for Java; ODBC supports many languages.</span>
+<span>- JDBC is slower than native ODBC but platform-independent.</span>
+
+<span>8. Differences between Cookies and Sessions?</span>
+<span>- Cookies: stored on client browser.</span>
+<span>- Sessions: stored on server for each user.</span>
+
+<span>9. Differences between Spring Boot and Spring Framework?</span>
+<span>- Spring Boot simplifies Spring configuration using auto-configuration.</span>
+<span>- Spring is more complex with XML-based configuration.</span>
+
+<span>10. Differences between standalone and web applications?</span>
+<span>- Standalone apps run locally without internet.</span>
+<span>- Web apps run on browser and require server and internet.</span>
+
+<span>11. Basic requirements for executing a web application:</span>
+<span>- Web server</span>
+<span>- Application server</span>
+<span>- Database server</span>
+<span>- Internet connection</span>
+<span>- HTML, CSS, JavaScript</span>
+`
+},
+
+    week2: {
+      title: "Week 2 – MS Access JDBC Connection",
+      aim: "Connect Java with MS Access using JDBC–UCanAccess driver.",
+      file: "AJL--week2.pdf",
+      output: "week2_output.png",
+      code: `<span>import java.sql.*;</span>
+<span>class AccessConnect{</span>
+<span> public static void main(String args[])throws Exception{</span>
+<span>  Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");</span>
+<span>  Connection con=DriverManager.getConnection("jdbc:ucanaccess://D:/database/yourdatabase.accdb");</span>
+<span>  Statement st=con.createStatement();</span>
+<span>  ResultSet rs=st.executeQuery("SELECT * FROM student");</span>
+<span>  while(rs.next()) System.out.println(rs.getInt(1)+" "+rs.getString(2));</span>
+<span>  con.close();</span>
+<span> }}</span>`
+    },
+    week3: {
+      title: "Week 3 – MySQL with DSN (JDBC)",
+      aim: "Connect Java Application to MySQL through DSN using JDBC.",
+      file: "AJL--week3.pdf",
+      output: "week3_output.png",
+      code: `<span>import java.sql.*;</span>
+<span>public class Withdsn{</span>
+<span> public static void main(String[] args){</span>
+<span>  try{</span>
+<span>   Class.forName("com.mysql.jdbc.Driver");</span>
+<span>   Connection con=DriverManager.getConnection("jdbc:mysql://localhost/employee","root","");</span>
+<span>   Statement st=con.createStatement();</span>
+<span>   st.executeUpdate("insert into employee values(104,'vasavi')");</span>
+<span>   ResultSet rs=st.executeQuery("select * from employee");</span>
+<span>   while(rs.next()) System.out.println(rs.getInt(1)+" "+rs.getString(2));</span>
+<span>   con.close();</span>
+<span>  }catch(Exception e){System.out.println(e);} }</span>
+<span>}</span>`
+    },
+    week4: {
+      title: "Week 4 – Callable and Prepared Statement Programs",
+      aim: "Use PreparedStatement and CallableStatement in JDBC to execute queries and procedures.",
+      file: "2346da6e-4bd5-4412-bddd-897a64870663.pdf",
+      output: "week4_output.png",
+      code: `<span>import java.sql.*;</span>
+<span>class CallablePreparedExample{</span>
+<span> public static void main(String args[]){</span>
+<span>  try{</span>
+<span>   Class.forName("com.mysql.cj.jdbc.Driver");</span>
+<span>   Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");</span>
+<span>   PreparedStatement ps=con.prepareStatement("insert into student values(?,?)");</span>
+<span>   ps.setInt(1,111); ps.setString(2,"Priya"); ps.executeUpdate();</span>
+<span>   CallableStatement cs=con.prepareCall("{call getStudentName(?)}");</span>
+<span>   cs.setInt(1,111); ResultSet rs=cs.executeQuery();</span>
+<span>   while(rs.next()) System.out.println("Name: "+rs.getString(1));</span>
+<span>   con.close();</span>
+<span>  }catch(Exception e){System.out.println(e);} }</span>
+<span>}</span>`
+    },
+    week5a: {
+      title: "Week 5 – Scroll Sensitive ResultSet",
+      aim: "Demonstrate ResultSet navigation using TYPE_SCROLL_SENSITIVE and CONCUR_UPDATABLE.",
+      file: "AJL----week5[1].docx",
+      output: "week5_output.png",
+      code: `<span>package project2;</span>
+<span>import java.sql.*;</span>
+<span>public class Project2{</span>
+<span> public static void main(String[] args){</span>
+<span>  try{</span>
+<span>   Class.forName("com.mysql.jdbc.Driver");</span>
+<span>   Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/crud","root","");</span>
+<span>   Statement stmt=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);</span>
+<span>   ResultSet rs=stmt.executeQuery("SELECT * FROM employees");</span>
+<span>   while(rs.next()) System.out.println(rs.getInt(1)+","+rs.getString(2));</span>
+<span>   rs.absolute(2); rs.updateString(2,"UpdatedName"); rs.updateRow();</span>
+<span>   rs.beforeFirst(); while(rs.next()) System.out.println(rs.getInt(1)+","+rs.getString(2));</span>
+<span>   rs.close(); stmt.close(); con.close();</span>
+<span>  }catch(Exception e){System.out.println(e);} }</span>
+<span>}</span>`
+    }
+  };
+
+  // --- Unit II topics ---
+  const servlets = {
+    genericServlet: {
+      title: "Week 6 – Generic Servlet Program",
+      aim: "Write a Java program to demonstrate a GenericServlet.",
+      file: "week-6 Adv_java.docx",
+      output: "genericservlet_output.png",
+      code: `<span>import java.io.*;</span>
+<span>import javax.servlet.*;</span>
+<span>public class GenericServletExample extends GenericServlet {</span>
+<span> public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {</span>
+<span>  res.setContentType("text/html");</span>
+<span>  PrintWriter out = res.getWriter();</span>
+<span>  out.println("&lt;h1&gt;Hello from Generic Servlet Example&lt;/h1&gt;");</span>
+<span> }</span>
+<span>}</span>`
+    },
+    httpServlet: {
+      title: "Week 6 – HttpServlet Program",
+      aim: "Develop a servlet extending HttpServlet to print a greeting message.",
+      file: "week-6 Adv_java.docx",
+      output: "none",
+      code: `<span>import java.io.*;</span>
+<span>import javax.servlet.*;</span>
+<span>import javax.servlet.http.*;</span>
+<span>public class NewServlet extends HttpServlet {</span>
+<span> protected void doGet(HttpServletRequest request, HttpServletResponse response)</span>
+<span> throws ServletException, IOException {</span>
+<span>  response.setContentType("text/html");</span>
+<span>  PrintWriter out = response.getWriter();</span>
+<span>  out.println("&lt;h1&gt;Hello C5&lt;/h1&gt;");</span>
+<span> }</span>
+<span>}</span>`
+    },
+    pizzaOrder: {
+      title: "Week 6 – Pizza Order Servlet",
+      aim: "HTML + Servlet program for pizza ordering.",
+      file: "week-6 Adv_java.docx",
+      outputImages: [
+    "pizza_form_output.png",
+    "pizza_result_output.png"
+  ],
+      code: `<span>&lt;form action="pizaaservlet" method="post"&gt;</span>
+<span> Name:&lt;input type="text" name="customerName"&gt;&lt;br&gt;</span>
+<span> Crust:&lt;select name="crust"&gt;&lt;option&gt;Thin&lt;/option&gt;&lt;option&gt;Cheese&lt;/option&gt;&lt;/select&gt;&lt;br&gt;</span>
+<span> Toppings:&lt;input type="checkbox" name="toppings" value="Paneer"&gt;Paneer</span>
+<span> &lt;input type="checkbox" name="toppings" value="Onions"&gt;Onions&lt;br&gt;</span>
+<span> &lt;input type="submit" value="Order"&gt;</span>
+<span>&lt;/form&gt;</span>
+<span>import java.io.*;</span>
+<span>import javax.servlet.*;</span>
+<span>import javax.servlet.http.*;</span>
+<span>import java.util.*;</span>
+<span>public class pizaaservlet extends HttpServlet {</span>
+<span> protected void doPost(HttpServletRequest request, HttpServletResponse response)</span>
+<span> throws ServletException, IOException {</span>
+<span>  response.setContentType("text/html");</span>
+<span>  PrintWriter out = response.getWriter();</span>
+<span>  out.println("&lt;h2&gt;Your Pizza Order Details&lt;/h2&gt;");</span>
+<span>  Enumeration&lt;String&gt; names = request.getParameterNames();</span>
+<span>  while(names.hasMoreElements()){</span>
+<span>    String n = names.nextElement();</span>
+<span>    String[] vals = request.getParameterValues(n);</span>
+<span>    out.println("&lt;b&gt;"+n+": &lt;/b&gt;"+Arrays.toString(vals)+"&lt;br&gt;");</span>
+<span>  }</span>
+<span> }</span>
+<span>}</span>`
+    },
+    formData: {
+  title: "Week 6 – Form Data Servlet",
+  aim: "Create an HTML form to collect and display data using Servlet.",
+  file: "week-6 Adv_java.docx",
+
+  outputImages: [
+    "form_fill_output.png",
+    "form_fill_result.png"
+  ],
+
+  code: `<span>&lt;form action="FormData" method="post"&gt;</span>
+<span> Full Name:&lt;input type="text" name="fullname"&gt;&lt;br&gt;</span>
+<span> Phone:&lt;input type="text" name="phone"&gt;&lt;br&gt;</span>
+<span> Gender:&lt;input type="radio" name="gender" value="Male"&gt;Male</span>
+<span> &lt;input type="radio" name="gender" value="Female"&gt;Female&lt;br&gt;</span>
+<span> &lt;input type="submit" value="Submit"&gt;</span>
+<span>&lt;/form&gt;</span>
+
+<span>import java.io.*;</span>
+<span>import javax.servlet.*;</span>
+<span>import javax.servlet.http.*;</span>
+<span>public class FormData extends HttpServlet {</span>
+<span> protected void doPost(HttpServletRequest req, HttpServletResponse res)</span>
+<span> throws ServletException, IOException {</span>
+<span>  res.setContentType("text/html");</span>
+<span>  PrintWriter out = res.getWriter();</span>
+<span>  String name = req.getParameter("fullname");</span>
+<span>  String phone = req.getParameter("phone");</span>
+<span>  String gender = req.getParameter("gender");</span>
+<span>  out.println("&lt;h3&gt;Details Entered&lt;/h3&gt;");</span>
+<span>  out.println("Name: "+name+"&lt;br&gt;Phone: "+phone+"&lt;br&gt;Gender: "+gender);</span>
+<span> }</span>
+<span>}</span>`
+},
+
+    createCookie: {
+      title: "Week 7 – Create Cookie Servlet",
+      aim: "Write a servlet to create cookies.",
+      file: "Week7-Adv_java.docx",
+      output: "week7_cookie.png",
+                
+      code: `<span>import java.io.*;</span>
+<span>import javax.servlet.*;</span>
+<span>import javax.servlet.http.*;</span>
+<span>public class CreateCookieServlet extends HttpServlet {</span>
+<span> protected void doPost(HttpServletRequest req, HttpServletResponse res)</span>
+<span> throws ServletException, IOException {</span>
+<span>  res.setContentType("text/html");</span>
+<span>  PrintWriter out = res.getWriter();</span>
+<span>  String uname = req.getParameter("username");</span>
+<span>  Cookie c = new Cookie("username", uname);</span>
+<span>  res.addCookie(c);</span>
+<span>  out.println("&lt;h3&gt;Cookie Created Successfully&lt;/h3&gt;");</span>
+<span> }</span>
+<span>}</span>`
+    },
+    readCookie: {
+      title: "Week 7 – Read Cookie Servlet",
+      aim: "Write a servlet that reads stored cookies.",
+      file: "Week7-Adv_java.docx",
+      output: [
+   "week7_readcookie.png",
+],
+      code: `<span>import java.io.*;</span>
+<span>import javax.servlet.*;</span>
+<span>import javax.servlet.http.*;</span>
+<span>public class ReadCookieServlet extends HttpServlet {</span>
+<span> protected void doGet(HttpServletRequest req, HttpServletResponse res)</span>
+<span> throws ServletException, IOException {</span>
+<span>  res.setContentType("text/html");</span>
+<span>  PrintWriter out = res.getWriter();</span>
+<span>  Cookie[] cks = req.getCookies();</span>
+<span>  if(cks != null){</span>
+<span>   for(Cookie ck : cks)</span>
+<span>     out.println(ck.getName()+" = "+ck.getValue()+"&lt;br&gt;");</span>
+<span>  } else out.println("No Cookies Found");</span>
+<span> }</span>
+<span>}</span>`
+    },
+    
+    
+    week8: {
+  title: "Week 8 – Spring Boot Project Structure & Build Tools",
+  aim: "Create a Spring Boot application using Maven, explore project structure, and display output.",
+  file: "AJL--week8.pdf",
+  output: "week8_output.png",
+  code: `<span>package com.example.demo.controller;</span>
+<span>import org.springframework.web.bind.annotation.GetMapping;</span>
+<span>import org.springframework.web.bind.annotation.RestController;</span>
+
+<span>@RestController</span>
+<span>public class HelloController {</span>
+
+<span>    @GetMapping("/")</span>
+<span>    public String message() {</span>
+<span>        return "Spring Boot App Running Successfully! By 238W1A1293";</span>
+<span>    }</span>
+<span>}</span>`
+},
+week9: {
+  title: "Week 9 – Spring Boot REST API (GET & POST)",
+  aim: "Build REST endpoints using Spring Boot and test them using Postman.",
+  
+  output: "week9_output.png",
+  code: `<span>@RestController</span>
+<span>public class ApiController {</span>
+
+<span>  @GetMapping("/api/greeting")</span>
+<span>  public String getGreeting() {</span>
+<span>    return "Hello from GET endpoint!";</span>
+<span>  }</span>
+
+<span>  @PostMapping("/api/greeting")</span>
+<span>  public String postGreeting(@RequestBody String name) {</span>
+<span>    return "Hello, "Priya..238w1a1293" from POST endpoint!";</span>
+<span>  }</span>
+
+<span>}</span>`
+},
+week10: {
+  title: "Week 10 – Spring Boot Routing (PathVariable & RequestParam)",
+  aim: "Create a Spring Boot REST Controller with @GetMapping, @PathVariable and test using browser.",
+  file: "f83ddc42-c0b3-4bc7-b640-226d09cc5054.docx",
+  output: "Week10_output.png",
+  code: `<span>// WelcomeApplication.java</span>
+<span>package com.example.welcome;</span>
+<span>import org.springframework.boot.SpringApplication;</span>
+<span>import org.springframework.boot.autoconfigure.SpringBootApplication;</span>
+<span>@SpringBootApplication</span>
+<span>public class WelcomeApplication {</span>
+<span> public static void main(String[] args) {</span>
+<span>  SpringApplication.run(WelcomeApplication.class, args);</span>
+<span> }</span>
+<span>}</span>
+
+<span>// WelcomeController.java</span>
+<span>package com.example.welcome;</span>
+<span>import org.springframework.web.bind.annotation.GetMapping;</span>
+<span>import org.springframework.web.bind.annotation.PathVariable;</span>
+<span>import org.springframework.web.bind.annotation.RequestMapping;</span>
+<span>import org.springframework.web.bind.annotation.RestController;</span>
+
+<span>@RestController</span>
+<span>@RequestMapping("/api")</span>
+<span>public class WelcomeController {</span>
+
+<span>    // Example: http://localhost:8080/api/square/5</span>
+<span>    @GetMapping("/square/{num}")</span>
+<span>    public String square(@PathVariable int num) {</span>
+<span>        return "Square of " + num + " = " + (num * num);</span>
+<span>    }</span>
+
+<span>}</span>`
+},
+
+
+week11: {
+  title: "Week 11 – Spring Boot Annotations (Component, Service, Repository)",
+  aim: "Implement Spring Boot stereotype annotations and test using H2 Database.",
+  
+  output: "Week11_output.PNG",
+  code: `<span>// Student Entity</span>
+<span>package com.example.demo;</span>
+<span>import jakarta.persistence.*;</span>
+<span>@Entity</span>
+<span>public class Student {</span>
+<span>    @Id</span>
+<span>    @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+<span>    private Long id;</span>
+<span>    private String name;</span>
+<span>    private String city;</span>
+<span>    public Student() {}</span>
+<span>    public Student(String name, String city) {</span>
+<span>        this.name = name;</span>
+<span>        this.city = city;</span>
+<span>    }</span>
+<span>}</span>
+
+<span>// Repository Interface</span>
+<span>package com.example.demo;</span>
+<span>import org.springframework.data.jpa.repository.JpaRepository;</span>
+<span>public interface StudentRepository extends JpaRepository<Student, Long> {}</span>
+
+<span>// Controller</span>
+<span>@RestController</span>
+<span>public class StudentController {</span>
+<span>    @Autowired</span>
+<span>    private StudentRepository repo;</span>
+
+<span>    @GetMapping("/")</span>
+<span>    public String home() {</span>
+<span>        return "Spring Boot + H2 + JPA Example Running!";</span>
+<span>    }</span>
+
+<span>    @GetMapping("/add")</span>
+<span>    public String addStudent(@RequestParam String name, @RequestParam String city) {</span>
+<span>        repo.save(new Student(name, city));</span>
+<span>        return "Student Added Successfully!";</span>
+<span>    }</span>
+
+<span>    @GetMapping("/students")</span>
+<span>    public List<Student> getStudents() {</span>
+<span>        return repo.findAll();</span>
+<span>    }</span>
+<span>}</span>
+
+<span>// application.properties</span>
+<span>spring.datasource.url=jdbc:h2:mem:testdb</span>
+<span>spring.datasource.driverClassName=org.h2.Driver</span>
+<span>spring.jpa.hibernate.ddl-auto=update</span>
+<span>spring.h2.console.enabled=true</span>`
+},
+week12: {
+  title: "Week 12 – Spring Data JPA with MySQL (CRUD + Query Methods)",
+  aim: "Implement CRUD operations using Spring Data JPA with MySQL and test using REST endpoints.",
+  
+  outputImages: [
+   "week12_create.png",
+   "week12_read.png",
+   "week12_update.png",
+   "week12_delete.png"
+],
+  code: `<span>// application.properties</span>
+<span>spring.datasource.url=jdbc:mysql://localhost:3306/demo1</span>
+<span>spring.datasource.username=root</span>
+<span>spring.datasource.password=</span>
+<span>spring.jpa.hibernate.ddl-auto=update</span>
+<span>spring.jpa.show-sql=true</span>
+<span>spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect</span>
+
+<span>// Employee Entity</span>
+<span>package com.example.demo1.entity;</span>
+<span>import jakarta.persistence.*;</span>
+<span>@Entity</span>
+<span>public class Employee {</span>
+<span> @Id</span>
+<span> @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+<span> private Long id;</span>
+<span> private String name;</span>
+<span> private String department;</span>
+<span> private double salary;</span>
+<span> public Employee() {}</span>
+<span> public Employee(String name, String department, double salary) {</span>
+<span>  this.name = name;</span>
+<span>  this.department = department;</span>
+<span>  this.salary = salary;</span>
+<span> }}</span>
+
+<span>// Repository Interface</span>
+<span>package com.example.demo1.repository;</span>
+<span>import org.springframework.data.jpa.repository.JpaRepository;</span>
+<span>public interface EmployeeRepository extends JpaRepository&lt;Employee, Long&gt; {}</span>
+
+<span>// Controller (CRUD Operations)</span>
+<span>@RestController</span>
+<span>@RequestMapping("/employees")</span>
+<span>public class EmployeeController {</span>
+<span> @Autowired</span>
+<span> private EmployeeRepository repo;</span>
+
+<span> // CREATE</span>
+<span> @PostMapping</span>
+<span> public String add(@RequestBody Employee e){</span>
+<span>  repo.save(e);</span>
+<span>  return "Employee added successfully!";</span>
+<span> }</span>
+
+<span> // READ ALL</span>
+<span> @GetMapping</span>
+<span> public List&lt;Employee&gt; getAll(){</span>
+<span>  return repo.findAll();</span>
+<span> }</span>
+
+<span> // READ BY ID</span>
+<span> @GetMapping("/{id}")</span>
+<span> public Employee get(@PathVariable Long id){</span>
+<span>  return repo.findById(id).orElse(null);</span>
+<span> }</span>
+
+<span> // UPDATE</span>
+<span> @PutMapping("/{id}")</span>
+<span> public String update(@PathVariable Long id, @RequestBody Employee newEmp){</span>
+<span>  Employee e = repo.findById(id).orElse(null);</span>
+<span>  if(e != null){</span>
+<span>   e.setName(newEmp.getName());</span>
+<span>   e.setDepartment(newEmp.getDepartment());</span>
+<span>   e.setSalary(newEmp.getSalary());</span>
+<span>   repo.save(e);</span>
+<span>   return "Employee updated successfully!";</span>
+<span>  }</span>
+<span>  return "Employee not found!";</span>
+<span> }</span>
+
+<span> // DELETE</span>
+<span> @DeleteMapping("/{id}")</span>
+<span> public String delete(@PathVariable Long id){</span>
+<span>  Employee e = repo.findById(id).orElse(null);</span>
+<span>  if(e != null){</span>
+<span>   repo.delete(e);</span>
+<span>   return "Employee deleted successfully!";</span>
+<span>  }</span>
+<span>  return "Employee not found!";</span>
+<span> }</span>
+<span>}</span>`
+},
+
+
+
+
+
+  };
+
+  const allTopics = { ...jdbc, ...servlets };
+  const t = allTopics[topic];
+  if (!t) return;
+
+  let outputHTML = "";
+
+// MULTIPLE IMAGES (week12 uses outputImages)
+if (t.outputImages && Array.isArray(t.outputImages)) {
+    outputHTML = "<div class='output-box'><b>Output:</b><br>";
+    t.outputImages.forEach(img => {
+        outputHTML += "<img src='" + img + "' alt='Output Image'><br>";
+    });
+    outputHTML += "</div>";
+}
+
+// SINGLE IMAGE (week2, week3, week5, week8, week9, week10)
+else if (t.output && t.output !== "none") {
+    outputHTML = "<div class='output-box'><b>Output:</b><br><img src='" + t.output + "' alt='Output'></div>";
+}
+
+
+  c.innerHTML =
+    "<h2>" + t.title + "</h2>" +
+    "<p><b>AIM:</b> " + t.aim + "</p>" +
+    "<div class='code-box'><code>" + t.code + "</code></div>" +
+    "<button class='download-btn' onclick=\"window.open('" + t.file + "')\">📥 Download Week File</button>" +
+    outputHTML;
+}
+</script>
+</body>
+</html>
 
