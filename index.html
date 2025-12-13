@@ -6,193 +6,140 @@
 <title>Advanced Java Lab – Final Website</title>
 
 <style>
+/* ===== GLOBAL ===== */
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
-  display: flex;
+  font-family: Poppins, Arial, sans-serif;
   height: 100vh;
-  overflow: hidden;
-  background: linear-gradient(135deg, #fdf2f8, #dbeafe, #cffafe, #fef9c3);
 }
 
-  
-/* Sidebar */
+/* ===== FRONT PAGE ===== */
+#frontPage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#a78bfa,#60a5fa,#34d399);
+  color: white;
+  text-align: center;
+}
+
+#frontPage button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #fde047;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* ===== MAIN SITE ===== */
+#mainSite {
+  display: none;
+  height: 100vh;
+}
+
+/* Layout */
+.main-layout {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg,#fdf2f8,#dbeafe,#cffafe,#fef9c3);
+}
+
+/* ===== SIDEBAR ===== */
 .sidebar {
   width: 280px;
-  background: linear-gradient(180deg, #0f172a, #312e81, #1e293b);
+  background: linear-gradient(180deg,#0f172a,#312e81,#1e293b);
   color: white;
+  padding: 20px;
   overflow-y: auto;
-  padding: 25px 20px;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
 }
+
 .sidebar h2 {
   text-align: center;
   color: #fde047;
-  font-weight: 700;
-  text-shadow: 0 0 12px rgba(250, 204, 21, 0.6);
   margin-bottom: 20px;
-  letter-spacing: 1px;
 }
-.unit {
-  margin-top: 20px;
-}
+
 .unit button {
   width: 100%;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.15);
   border: none;
-  color: #f1f5f9;
-  font-weight: 600;
-  text-align: left;
-  font-size: 16px;
+  color: white;
   padding: 10px;
-  border-radius: 8px;
+  margin-top: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 6px;
+  text-align: left;
 }
-.unit button:hover {
-  background: linear-gradient(90deg, #f472b6, #a78bfa, #34d399);
-  color: #fff;
-  transform: translateX(5px);
-}
+
 .topics {
-  margin-left: 15px;
-  margin-top: 8px;
   display: none;
-  animation: fadeIn 0.3s ease-in-out;
+  margin-left: 15px;
 }
+
 .topics li {
   list-style: none;
   padding: 6px 0;
   cursor: pointer;
   color: #cbd5e1;
-  transition: all 0.3s ease;
-}
-.topics li:hover {
-  color: #fcd34d;
-  text-decoration: underline;
-  transform: translateX(5px);
 }
 
-/* Main Content */
+/* ===== CONTENT ===== */
 .content {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
-  background: linear-gradient(180deg, #fff7ed, #fef3c7, #e0f2fe);
-  color: #111827;
-  box-shadow: inset 0 0 25px rgba(0,0,0,0.08);
-  border-top-left-radius: 20px;
-}
-.content h1 {
-  color: #6d28d9;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-}
-.content h2 {
-  color: #0f172a;
-  border-left: 6px solid #ec4899;
-  padding-left: 10px;
-  background: #fdf2f8;
-  border-radius: 4px;
-  display: inline-block;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  background: linear-gradient(180deg,#fff7ed,#fef3c7,#e0f2fe);
 }
 
-/* Code Box */
 .code-box {
-  background: linear-gradient(135deg, #0f172a, #1e3a8a, #312e81);
-  color: #e2e8f0;
+  background: #0f172a;
+  color: #e5e7eb;
   padding: 15px;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-top: 15px;
-  font-family: "Consolas", monospace;
-  counter-reset: line;
+  font-family: Consolas, monospace;
   white-space: pre-wrap;
-  max-height: 400px;
-  overflow-y: auto;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  transition: transform 0.3s ease;
-}
-.code-box:hover {
-  transform: scale(1.01);
-}
-.code-box code { display: block; }
-.code-box code span {
-  display: block;
-  counter-increment: line;
-}
-.code-box code span::before {
-  content: counter(line);
-  display: inline-block;
-  border-right: 1px solid #475569;
-  width: 2em;
-  margin-right: 10px;
-  color: #94a3b8;
-  text-align: right;
 }
 
-/* Buttons + Output */
-.download-btn {
-  background: linear-gradient(90deg, #10b981, #06b6d4, #3b82f6);
-  color: white;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(14,165,233,0.4);
-  transition: all 0.3s ease;
-}
-.download-btn:hover {
-  background: linear-gradient(90deg, #0ea5e9, #6366f1, #ec4899);
-  transform: translateY(-2px);
-}
 .output-box {
-  border: 2px dashed #f59e0b;
-  border-radius: 10px;
   margin-top: 20px;
-  padding: 20px;
+  padding: 15px;
   background: #fef9c3;
-  color: #92400e;
-  text-align: center;
-  box-shadow: 0 0 18px rgba(245,158,11,0.25);
-}
-.output-box img {
-  width: 90%;
-  max-width: 700px;
+  border: 2px dashed #f59e0b;
   border-radius: 8px;
+  text-align: center;
+}
+
+.output-box img {
+  max-width: 90%;
   margin-top: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.25);
-  transition: transform 0.3s ease;
-}
-.output-box img:hover {
-  transform: scale(1.02);
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #1e293b;
-}
-::-webkit-scrollbar-thumb {
-  background-color: #64748b;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: #a5b4fc;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 
-<div class="sidebar">
+<body>
+
+<!-- ========== FRONT PAGE ========== -->
+<div id="frontPage">
+  <h1>Advanced Java Lab</h1>
+  <h2>Kadimella Govardhana Krishna Priya</h2>
+  <h3>Roll No: 238W1A1293</h3>
+  <button onclick="enterSite()">Enter Lab Website</button>
+</div>
+
+<!-- ========== MAIN SITE ========== -->
+<div id="mainSite">
+  <div class="main-layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
   <h2>Lab Topics</h2>
 
   <!-- UNIT I -->
@@ -238,24 +185,32 @@ body {
   </ul>
 </div>
 
+     
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content" id="content">
+      <h1>Welcome to Advanced Java Lab</h1>
+      <p>Select any week from the sidebar.</p>
+    </div>
+
+  </div>
 </div>
 
-<div class="content" id="content">
-  <h1>Welcome to Advanced Java Lab – Final Website</h1>
-  <p>Select any week from the sidebar to view its AIM, code, and actual output.</p>
-</div>
-
+<!-- ========== SCRIPT ========== -->
 <script>
-function toggleTopics(id){
-  const el=document.getElementById(id);
-  el.style.display=el.style.display==="block"?"none":"block";
+function enterSite() {
+  document.getElementById("frontPage").style.display = "none";
+  document.getElementById("mainSite").style.display = "block";
 }
 
-/* ---------- Combined Show Content for Both Units ---------- */
+function toggleTopics(id) {
+  const el = document.getElementById(id);
+  el.style.display = (el.style.display === "block") ? "none" : "block";
+}
+
 function showContent(topic) {
   const c = document.getElementById("content");
-
-  // --- Unit I topics ---
   const jdbc = {
     week1: {
   title: "Week 1 – Introduction to Advanced Java",
@@ -349,7 +304,7 @@ function showContent(topic) {
       title: "Week 2 – MS Access JDBC Connection",
       aim: "Connect Java with MS Access using JDBC–UCanAccess driver.",
       file: "AJL--week2.pdf",
-      output: "Project/week2_output.png",
+      output: "week2_output.png",
       code: `<span>import java.sql.*;</span>
 <span>class AccessConnect{</span>
 <span> public static void main(String args[])throws Exception{</span>
@@ -365,7 +320,7 @@ function showContent(topic) {
       title: "Week 3 – MySQL with DSN (JDBC)",
       aim: "Connect Java Application to MySQL through DSN using JDBC.",
       file: "AJL--week3.pdf",
-      output: "Project/week3_output.png",
+      output: "week3_output.png",
       code: `<span>import java.sql.*;</span>
 <span>public class Withdsn{</span>
 <span> public static void main(String[] args){</span>
@@ -384,7 +339,7 @@ function showContent(topic) {
       title: "Week 4 – Callable and Prepared Statement Programs",
       aim: "Use PreparedStatement and CallableStatement in JDBC to execute queries and procedures.",
       file: "2346da6e-4bd5-4412-bddd-897a64870663.pdf",
-      output: "Project/week4_output.png",
+      output: "week4_output.png",
       code: `<span>import java.sql.*;</span>
 <span>class CallablePreparedExample{</span>
 <span> public static void main(String args[]){</span>
@@ -404,7 +359,7 @@ function showContent(topic) {
       title: "Week 5 – Scroll Sensitive ResultSet",
       aim: "Demonstrate ResultSet navigation using TYPE_SCROLL_SENSITIVE and CONCUR_UPDATABLE.",
       file: "AJL----week5[1].docx",
-      output: "Project/week5_output.png",
+      output: "week5_output.png",
       code: `<span>package project2;</span>
 <span>import java.sql.*;</span>
 <span>public class Project2{</span>
@@ -429,7 +384,7 @@ function showContent(topic) {
       title: "Week 6 – Generic Servlet Program",
       aim: "Write a Java program to demonstrate a GenericServlet.",
       file: "week-6 Adv_java.docx",
-      output: "Project/genericservlet_output.png",
+      output: "genericservlet_output.png",
       code: `<span>import java.io.*;</span>
 <span>import javax.servlet.*;</span>
 <span>public class GenericServletExample extends GenericServlet {</span>
@@ -462,8 +417,8 @@ function showContent(topic) {
       aim: "HTML + Servlet program for pizza ordering.",
       file: "week-6 Adv_java.docx",
       outputImages: [
-    "Project/pizza_form_output.png",
-    "Project/pizza_result_output.png"
+    "pizza_form_output.png",
+    "pizza_result_output.png"
   ],
       code: `<span>&lt;form action="pizaaservlet" method="post"&gt;</span>
 <span> Name:&lt;input type="text" name="customerName"&gt;&lt;br&gt;</span>
@@ -497,8 +452,8 @@ function showContent(topic) {
   file: "week-6 Adv_java.docx",
 
   outputImages: [
-    "Project/form_fill_output.png",
-    "Project/form_fill_result.png"
+    "form_fill_output.png",
+    "form_fill_result.png"
   ],
 
   code: `<span>&lt;form action="FormData" method="post"&gt;</span>
@@ -530,7 +485,7 @@ function showContent(topic) {
       title: "Week 7 – Create Cookie Servlet",
       aim: "Write a servlet to create cookies.",
       file: "Week7-Adv_java.docx",
-      output: "Project/week7_cookie.png",
+      output: "week7_cookie.png",
                 
       code: `<span>import java.io.*;</span>
 <span>import javax.servlet.*;</span>
@@ -552,7 +507,7 @@ function showContent(topic) {
       aim: "Write a servlet that reads stored cookies.",
       file: "Week7-Adv_java.docx",
       output: [
-   "Project/week7_readcookie.png",
+   "week7_readcookie.png",
 ],
       code: `<span>import java.io.*;</span>
 <span>import javax.servlet.*;</span>
@@ -576,7 +531,7 @@ function showContent(topic) {
   title: "Week 8 – Spring Boot Project Structure & Build Tools",
   aim: "Create a Spring Boot application using Maven, explore project structure, and display output.",
   file: "AJL--week8.pdf",
-  output: "Project/week8_output.png",
+  output: "week8_output.png",
   code: `<span>package com.example.demo.controller;</span>
 <span>import org.springframework.web.bind.annotation.GetMapping;</span>
 <span>import org.springframework.web.bind.annotation.RestController;</span>
@@ -594,7 +549,7 @@ week9: {
   title: "Week 9 – Spring Boot REST API (GET & POST)",
   aim: "Build REST endpoints using Spring Boot and test them using Postman.",
   
-  output: "Project/week9_output.png",
+  output: "week9_output.png",
   code: `<span>@RestController</span>
 <span>public class ApiController {</span>
 
@@ -614,7 +569,7 @@ week10: {
   title: "Week 10 – Spring Boot Routing (PathVariable & RequestParam)",
   aim: "Create a Spring Boot REST Controller with @GetMapping, @PathVariable and test using browser.",
   file: "f83ddc42-c0b3-4bc7-b640-226d09cc5054.docx",
-  output: "Project/Week10_output.png",
+  output: "Week10_output.png",
   code: `<span>// WelcomeApplication.java</span>
 <span>package com.example.welcome;</span>
 <span>import org.springframework.boot.SpringApplication;</span>
@@ -651,7 +606,7 @@ week11: {
   title: "Week 11 – Spring Boot Annotations (Component, Service, Repository)",
   aim: "Implement Spring Boot stereotype annotations and test using H2 Database.",
   
-  output: "Project/Week11_output.PNG",
+  output: "Week11_output.PNG",
   code: `<span>// Student Entity</span>
 <span>package com.example.demo;</span>
 <span>import jakarta.persistence.*;</span>
@@ -708,10 +663,10 @@ week12: {
   aim: "Implement CRUD operations using Spring Data JPA with MySQL and test using REST endpoints.",
   
   outputImages: [
-   "Project/week12_create.png",
-   "Project/week12_read.png",
-   "Project/week12_update.png",
-   "Project/week12_delete.png"
+   "week12_create.png",
+   "week12_read.png",
+   "week12_update.png",
+   "week12_delete.png"
 ],
   code: `<span>// application.properties</span>
 <span>spring.datasource.url=jdbc:mysql://localhost:3306/demo1</span>
@@ -799,8 +754,8 @@ week12: {
 
 
 
-
-
+   
+     
   };
 
   const allTopics = { ...jdbc, ...servlets };
@@ -831,7 +786,8 @@ else if (t.output && t.output !== "none") {
     "<button class='download-btn' onclick=\"window.open('" + t.file + "')\">📥 Download Week File</button>" +
     outputHTML;
 }
+
 </script>
+
 </body>
 </html>
-
